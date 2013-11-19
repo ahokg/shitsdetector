@@ -19,7 +19,8 @@ block body
   .container      
     div(ng-controller='AppCtrl')
       .jumbotron  
-        h1 Hello {{name}}
+        h1 Distance:
+          #distance
       div(ng-view)
     hr  
     div
@@ -34,3 +35,5 @@ block body
   script(src='js/directives.js')
   script(src='js/lib/jquery/jquery-2.0.3.min.js')
   script(src='bootstrap/js/bootstrap.min.js')
+  script(src='/socket.io/socket.io.js')
+
