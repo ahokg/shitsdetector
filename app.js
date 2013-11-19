@@ -18,6 +18,8 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
+app.use(require('express').static(__dirname + '/'));
+
 // JSON API
 app.get('/api/name', api.name);
 app.post('/sensor', function(req, res) {
@@ -38,8 +40,6 @@ app.post('/sensor', function(req, res) {
 });
 
 // redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
-
 
 /**
 * Start Server
