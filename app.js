@@ -1,49 +1,22 @@
-
 /**
  * Module dependencies
  */
 
-var express = require('express'),
-  routes = require('./routes'),
-  api = require('./routes/api'),
-  http = require('http'),
-  path = require('path'),
-  qs = require('querystring');
+var app = require('express')()
+  , server = require('http').createServer(app)
+  , io = require('socket.io').listen(server)
+  , routes = require('./routes')
+  , api = require('./routes/api')
+  , http = require('http')
+  , path = require('path')
+  , qs = require('querystring');
 
-var app = module.exports = express();
-var server = http.createServer(app);
-var io = io.listen(server);
-
-
-/**
-* Configuration
-*/
-
-// all environments
-app.set('port', process.env.PORT || 80);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(app.router);
-
-// development only
-if (app.get('env') === 'development') {
-   app.use(express.errorHandler());
-};
-
-// production only
-if (app.get('env') === 'production') {
-  // TODO
-}; 
-
-
+server.listen(80);
 
 // Routes
-app.get('/', routes.index);
-app.get('/partial/:name', routes.partial);
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/index.html');
+});
 
 // JSON API
 app.get('/api/name', api.name);
