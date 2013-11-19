@@ -28,6 +28,11 @@ app.post('/sensor', function(req, res) {
     req.on('end', function() {
        var POST = qs.parse(body);
        console.log(POST);
+
+       io.sockets.emit('distance', {
+        data: POST
+       });
+
        res.end();
     });
 });
